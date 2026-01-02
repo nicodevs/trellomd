@@ -1,0 +1,15 @@
+{
+  "name": "trello-to-markdown",
+  "version": "1.0.0",
+  "description": "Fetch Trello cards and output as Markdown",
+  "type": "module",
+  "main": "trello-to-markdown.js",
+  "scripts": {
+    "start": "node --env-file=.env trello-to-markdown.js"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.22",
+    "trello": "^0.11.0",
+    "zod": "^4.3.4"
+  }
+}
