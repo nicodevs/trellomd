@@ -167,7 +167,7 @@ async function saveConfiguration(config) {
   try {
     writeFileSync('trello-to-markdown.config.json', JSON.stringify(config, null, 2))
     log.info('Configuration saved to trello-to-markdown.config.json')
-    outro('Run: npx trellomd')
+    outro('Run: npx trellomd@latest')
   } catch (error) {
     log.error('Error writing config file: ' + error.message)
     process.exit(1)
