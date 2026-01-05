@@ -52,8 +52,15 @@ function parseGitHubAttachments(card) {
 }
 
 function generateMarkdown(config, list, cards) {
-  const openCards = config.ignoreArchived ? cards.filter(card => !card.closed) : cards
-  const section = openCards.length ? openCards.map(card => '- ' + card.name + parseGitHubAttachments(card)).join(EOL) : 'None'
+  let filteredCards = config.ignoreArchived ? cards.filter(card => !card.closed) : cards
+
+  if (config.memberId) {
+    filteredCards = filteredCards.filter(card =>
+      card.idMembers && card.idMembers.includes(config.memberId)
+    )
+  }
+
+  const section = filteredCards.length ? filteredCards.map(card => '- ' + card.name + parseGitHubAttachments(card)).join(EOL) : 'None'
   return ('*' + (list.title ?? list.name) + '*') + EOL + EOL + section
 }
 

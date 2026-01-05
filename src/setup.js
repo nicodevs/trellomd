@@ -121,6 +121,59 @@ async function fetchListsFromBoard(apiKey, apiToken, boardId) {
   }
 }
 
+async function fetchMembersFromBoard(apiKey, apiToken, boardId) {
+  const s = spinner()
+  s.start('Fetching members from your board')
+
+  try {
+    const trello = new Trello(apiKey, apiToken)
+    const members = await trello.getBoardMembers(boardId)
+
+    s.stop('Members fetched successfully')
+
+    if (!members?.length) {
+      log.warning('No members found on this board. All cards will be included.')
+      return []
+    }
+
+    return members
+  } catch (error) {
+    s.stop('Failed to fetch members')
+    log.error(String(error.message || error))
+    process.exit(1)
+  }
+}
+
+async function promptForMemberSelection(members) {
+  if (!members?.length) {
+    return null
+  }
+
+  const options = [
+    ...members.map(member => ({
+      value: member.id,
+      label: 'Only cards assigned to ' + member.fullName || member.username,
+      hint: member.username
+    })),
+    {
+      value: null,
+      label: 'Any member',
+      hint: 'Include cards from all members'
+    }
+  ]
+
+  const selectedMemberId = await select({
+    message: 'Your report can include cards from all members or only from a specific member.',
+    options: options
+  })
+
+  if (isCancel(selectedMemberId)) {
+    cancelSetup()
+  }
+
+  return selectedMemberId
+}
+
 async function promptForListSelection(lists) {
   const selectedListIds = await multiselect({
     message: 'Select the lists you want to include in your reports (press Space to select, Enter to submit)',
@@ -185,6 +238,9 @@ export async function setup() {
 
   const selectedLists = await promptForListSelection(listsOnBoard)
 
+  const membersOnBoard = await fetchMembersFromBoard(credentials.apiKey, credentials.apiToken, boardId)
+  const selectedMemberId = await promptForMemberSelection(membersOnBoard)
+
   log.info('Configure each list:')
 
   const listConfigs = []
@@ -200,6 +256,7 @@ export async function setup() {
     heading: additionalConfig.heading,
     ignoreArchived: additionalConfig.ignoreArchived,
     recentActivityHours: parseInt(additionalConfig.recentActivityHours),
+    memberId: selectedMemberId,
     lists: listConfigs
   }
 

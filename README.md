@@ -120,6 +120,7 @@ Create a `trellomd.config.json` file in your working directory with the followin
   "heading": "My Daily Report",
   "ignoreArchived": true,
   "recentActivityHours": 12,
+  "memberId": null,
   "lists": []
 }
 ```
@@ -129,6 +130,7 @@ Create a `trellomd.config.json` file in your working directory with the followin
 - **`heading`**: The title that appears at the top of your report
 - **`ignoreArchived`**: Set to `true` to exclude archived cards, `false` to include them
 - **`recentActivityHours`**: Number of hours to consider for "recent activity" (used by lists with `withRecentActivity` mode)
+- **`memberId`** (optional): Filter cards by a specific board member ID. Set to `null` or omit to include cards from all members (see below on how to get member IDs)
 
 ### 6. Configure Lists
 
@@ -151,6 +153,16 @@ https://api.trello.com/1/boards/YOUR_BOARD_ID/lists?key=YOUR_API_KEY&token=YOUR_
 
 This will return a JSON array with all lists on your board, including their IDs.
 
+**Getting Member IDs (Optional):**
+
+To filter cards by a specific member, you need their member ID. Open this URL in your browser:
+
+```
+https://api.trello.com/1/boards/YOUR_BOARD_ID/members?key=YOUR_API_KEY&token=YOUR_TOKEN
+```
+
+This will return a JSON array with all members on your board. Look for the `id` field in each member object.
+
 Example configuration with lists:
 
 ```json
@@ -161,6 +173,7 @@ Example configuration with lists:
   "heading": "Daily Progress Report",
   "ignoreArchived": true,
   "recentActivityHours": 24,
+  "memberId": "5a1b2c3d4e5f6a7b8c9d0e1f",
   "lists": [
     {
       "id": "5f9a1b2c3d4e5f6a7b8c9d0e",

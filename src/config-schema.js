@@ -7,6 +7,7 @@ export const configSchema = z.object({
   heading: z.string().default(''),
   ignoreArchived: z.boolean().default(true),
   recentActivityHours: z.number().positive().default(12),
+  memberId: z.string().nullable().optional().default(null),
   lists: z.array(
     z.object({
       id: z.string().min(1),
