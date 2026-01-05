@@ -5,7 +5,7 @@ Fetch cards from specific Trello lists and output them in Markdown format.
 ## Usage
 
 ```bash
-npx trello-to-markdown
+npx trellomd
 ```
 
 ## Configuration
@@ -49,7 +49,7 @@ This JSON file will be stored in the directory from where you ran the command. O
 After setup, running the same command from the directory with that JSON file will generate your Markdown report.
 
 ```bash
-npx trello-to-markdown
+npx trellomd
 ```
 
 Example output:

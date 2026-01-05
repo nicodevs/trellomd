@@ -1,11 +1,11 @@
 {
-  "name": "trello-to-markdown",
+  "name": "trellomd",
   "version": "0.0.1",
   "description": "Fetch Trello cards and output as Markdown",
   "type": "module",
   "main": "src/index.js",
   "bin": {
-    "trello-to-markdown": "src/index.js"
+    "trellomd": "src/index.js"
   },
   "files": [
     "src"
@@ -24,6 +24,14 @@
   ],
   "author": "Nico Devs <hi@nicodevs.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicodevs/trellomd"
+  },
+  "bugs": {
+    "url": "https://github.com/nicodevs/trellomd/issues"
+  },
+  "homepage": "https://github.com/nicodevs/trellomd#readme",
   "engines": {
     "node": ">=20.10.0"
   },
