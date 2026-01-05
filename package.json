@@ -4,10 +4,28 @@
   "description": "Fetch Trello cards and output as Markdown",
   "type": "module",
   "main": "src/index.js",
+  "bin": {
+    "trello-to-markdown": "src/index.js"
+  },
+  "files": [
+    "src"
+  ],
   "scripts": {
     "generate": "node src/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
+  },
+  "keywords": [
+    "trello",
+    "markdown",
+    "report",
+    "productivity",
+    "cli"
+  ],
+  "author": "Nico Devs <hi@nicodevs.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.10.0"
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",

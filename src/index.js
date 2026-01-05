@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
 import { existsSync } from 'fs'
+import { resolve } from 'path'
 import { generate } from './generate.js'
 import { setup } from './setup.js'
 
-const configPath = './trello-to-markdown.config.json'
+const configPath = resolve('./trello-to-markdown.config.json')
 
 if (!existsSync(configPath)) {
   setup().catch(error => {

@@ -1,6 +1,8 @@
 import Trello from 'trello'
 import { uniq, compact } from 'lodash-es'
 import { EOL } from 'os'
+import { resolve } from 'path'
+import { pathToFileURL } from 'url'
 import { validateConfig } from './config-schema.js'
 
 async function fetchCardsWithRecentActivity(trello, config, lists) {
@@ -59,7 +61,9 @@ export async function generate(configPath) {
   let rawConfig
 
   try {
-    const configModule = await import(configPath, { with: { type: 'json' } })
+    const absolutePath = resolve(configPath)
+    const fileUrl = pathToFileURL(absolutePath).href
+    const configModule = await import(fileUrl, { with: { type: 'json' } })
     rawConfig = configModule.default
   } catch {
     console.error('Error: Could not find or parse configuration file.')

@@ -1,0 +1,31 @@
+# Development files
+.git
+.gitignore
+eslint.config.js
+.eslintrc*
+
+# Configuration
+trello-to-markdown.config.json
+
+# IDE
+.vscode
+.idea
+.claude
+*.swp
+*.swo
+
+# Tests
+test/
+tests/
+*.test.js
+*.spec.js
+
+# CI
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# Misc
+.DS_Store
+*.log
+npm-debug.log*
