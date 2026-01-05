@@ -1,4 +1,3 @@
 .claude
 node_modules
-.env
-config.json
+trello-to-markdown.config.json
