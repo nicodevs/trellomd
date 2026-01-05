@@ -5,7 +5,7 @@ eslint.config.js
 .eslintrc*
 
 # Configuration
-trello-to-markdown.config.json
+trellomd.config.json
 
 # IDE
 .vscode

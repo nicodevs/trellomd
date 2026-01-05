@@ -5,7 +5,7 @@ import { resolve } from 'path'
 import { generate } from './generate.js'
 import { setup } from './setup.js'
 
-const configPath = resolve('./trello-to-markdown.config.json')
+const configPath = resolve('./trellomd.config.json')
 
 if (!existsSync(configPath)) {
   setup().catch(error => {

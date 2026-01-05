@@ -13,7 +13,7 @@ async function showIntro() {
   note(
     [
       'This wizard will ask you for Trello API keys and configuration.',
-      'It will create a trello-to-markdown.config.json file in the current directory.',
+      'It will create a trellomd.config.json file in the current directory.',
       'After setup, run this script from the directory where the JSON is located to generate your reports.'
     ].join(EOL),
     'Setup Wizard'
@@ -165,8 +165,8 @@ async function promptForListConfiguration(list, additionalConfig) {
 
 async function saveConfiguration(config) {
   try {
-    writeFileSync('trello-to-markdown.config.json', JSON.stringify(config, null, 2))
-    log.info('Configuration saved to trello-to-markdown.config.json')
+    writeFileSync('trellomd.config.json', JSON.stringify(config, null, 2))
+    log.info('Configuration saved to trellomd.config.json')
     outro('Run: npx trellomd@latest')
   } catch (error) {
     log.error('Error writing config file: ' + error.message)

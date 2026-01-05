@@ -10,13 +10,13 @@ npx trellomd@latest
 
 ## Configuration
 
-The first time you run it, a setup wizard will guide you through:
+The first time you run the command, a setup wizard will guide you through:
 
 - Getting your Trello API key and token
 - Picking a Trello board and selecting lists
 - Configuring how cards are retrieved from each list
 
-The setup wizard creates a `trello-to-markdown.config.json` file with your settings:
+The setup wizard creates a `trellomd.config.json` file with your settings:
 
 ```json
 {
@@ -42,11 +42,14 @@ The setup wizard creates a `trello-to-markdown.config.json` file with your setti
 }
 ```
 
-This JSON file will be stored in the directory from where you ran the command. Once created, feel free to move the file to another directory if needed. It contains API keys, so add it to `.gitignore` if you store it in a directory under version control.
+This JSON file will be stored in the directory from where you ran the command. Once created, feel free to move the file to another directory if needed.
+
+> [!NOTE]
+> The generated JSON file will contain API keys, so add it to `.gitignore` if you store it in a directory under version control.
 
 ## Generate reports
 
-After setup, running the same command from the directory with that JSON file will generate your Markdown report.
+After setup, running the command from a directory with a `trellomd.config.json` file will generate your Markdown report.
 
 ```bash
 npx trellomd@latest
@@ -107,7 +110,7 @@ The board ID is `j8b4tQ42`.
 
 ### 4. Create Configuration File
 
-Create a `trello-to-markdown.config.json` file in your working directory with the following structure:
+Create a `trellomd.config.json` file in your working directory with the following structure:
 
 ```json
 {
