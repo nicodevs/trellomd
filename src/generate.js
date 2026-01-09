@@ -16,8 +16,11 @@ async function fetchCardsWithRecentActivity(trello, config, lists) {
 
   const ids = uniq(compact(actions.map(action => action.data?.card?.id)))
   const cards = await Promise.all(
-    ids.map(id => trello.makeRequest('get', `/1/cards/${id}`, { attachments: true }))
-  )
+    ids.map(id =>
+      trello.makeRequest('get', `/1/cards/${id}`, { attachments: true })
+        .catch(() => null)
+    )
+  ).then(results => results.filter(card => card !== null))
 
   return Object.fromEntries(
     lists.map(list => [
