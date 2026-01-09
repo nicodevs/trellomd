@@ -1,6 +1,6 @@
 {
   "name": "trellomd",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Fetch Trello cards and output as Markdown",
   "type": "module",
   "main": "src/index.js",
