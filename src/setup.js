@@ -1,6 +1,7 @@
 import Trello from 'trello'
-import { writeFileSync } from 'fs'
+import { writeFileSync, readFileSync, existsSync } from 'fs'
 import { EOL } from 'os'
+import { execSync } from 'child_process'
 import { confirm, intro, cancel, note, group, text, isCancel, multiselect, select, spinner, log, outro } from '@clack/prompts'
 
 function cancelSetup() {
@@ -216,11 +217,32 @@ async function promptForListConfiguration(list, additionalConfig) {
   }
 }
 
+function isGitRepository() {
+  try {
+    execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' })
+    return true
+  } catch {
+    return false
+  }
+}
+
+function addToGitignore(filename) {
+  const content = existsSync('.gitignore') ? readFileSync('.gitignore', 'utf8') : ''
+
+  if (content.split(EOL).some(line => line.trim() === filename)) {
+    log.info(`${filename} is already in .gitignore`)
+    return
+  }
+
+  const updated = content + (content && !content.endsWith(EOL) ? EOL : '') + filename + EOL
+  writeFileSync('.gitignore', updated)
+  log.success(`Added ${filename} to .gitignore`)
+}
+
 async function saveConfiguration(config) {
   try {
     writeFileSync('trellomd.config.json', JSON.stringify(config, null, 2))
     log.info('Configuration saved to trellomd.config.json')
-    outro('Run: npx trellomd@latest')
   } catch (error) {
     log.error('Error writing config file: ' + error.message)
     process.exit(1)
@@ -261,4 +283,17 @@ export async function setup() {
   }
 
   await saveConfiguration(config)
+
+  if (isGitRepository()) {
+    const shouldAddToGitignore = await confirm({
+      message: 'Add trellomd.config.json to .gitignore? (Recommended to keep API credentials private)',
+      initialValue: true
+    })
+
+    if (!isCancel(shouldAddToGitignore) && shouldAddToGitignore) {
+      addToGitignore('trellomd.config.json')
+    }
+  }
+
+  outro('Done! Run: npx trellomd@latest')
 }
